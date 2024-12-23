@@ -1,0 +1,224 @@
+openapi: 3.0.0
+
+info:
+  version: "1.0.0"
+  title: User Management
+  description: The APIs For User Management Project In Zag Systems
+
+paths:
+  /addUser:
+    post:
+      tags:
+        - User
+      operationId: register
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Successfully registered user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+
+  /updateUser:
+    put:
+      tags:
+        - User
+      operationId: updateUser
+      summary: Update an existing user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+      responses:
+        '200':
+          description: Successfully updated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+
+  /deleteUser/{userName}:
+    delete:
+      tags:
+        - User
+      operationId: deleteUser
+      summary: Delete a user
+      parameters:
+        - name: userName
+          in: path
+          required: true
+          description: The username of the user to delete
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully deleted user
+
+  /getAllUsers:
+    get:
+      tags:
+        - User
+      operationId: getAllUsers
+      summary: Get a list of all users
+      responses:
+        '200':
+          description: A list of all users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserResponse'
+
+  /getUserById/{id}:
+    get:
+      tags:
+        - User
+      operationId: getUserById
+      summary: Get details of a user by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the user to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: User details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '404':
+          description: User not found
+
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - userName
+        - password
+        - email
+        - fullName
+        - mobileNumber
+        - role
+        - gender
+        - status
+      properties:
+        userName:
+          type: string
+          description: The username of the user
+        password:
+          type: string
+          description: The password for the user
+        email:
+          type: string
+          description: The email address of the user
+          format: email
+        fullName:
+          type: string
+          description: The full name of the user
+        mobileNumber:
+          type: string
+          description: The mobile number of the user
+        role:
+          type: string
+          description: The role of the user
+        gender:
+          type: string
+          description: The gender of the user
+        status:
+          type: string
+          description: The status of the user
+          enum:
+            - ACTIVE
+            - INACTIVE
+
+    UserUpdate:
+      type: object
+      required:
+        - id
+        - userName
+        - email
+        - password
+        - mobileNumber
+        - role
+        - status
+      properties:
+        id:
+          type: integer
+          description: The ID of the user
+        userName:
+          type: string
+          description: The username of the user
+        email:
+          type: string
+          description: The email address of the user
+          format: email
+        password:
+          type: string
+          description: The password of the user
+        mobileNumber:
+          type: string
+          description: The mobile number of the user
+        role:
+          type: string
+          description: The role of the user
+        status:
+          type: string
+          description: The status of the user
+          enum:
+            - ACTIVE
+            - INACTIVE
+
+    UserResponse:
+      type: object
+      required:
+        - id
+        - userName
+        - email
+        - fullName
+        - mobileNumber
+        - role
+        - gender
+        - status
+      properties:
+        id:
+          type: integer
+          description: The ID of the user
+        userName:
+          type: string
+          description: The username of the user
+        email:
+          type: string
+          description: The email address of the user
+          format: email
+        fullName:
+          type: string
+          description: The full name of the user
+        mobileNumber:
+          type: string
+          description: The mobile number of the user
+        role:
+          type: string
+          description: The role of the user
+        gender:
+          type: string
+          description: The gender of the user
+        status:
+          type: string
+          description: The status of the user
+          enum:
+            - ACTIVE
+            - INACTIVE

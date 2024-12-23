@@ -19,6 +19,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<org.mapstruct.version>1.6.3</org.mapstruct.version>
+		<openapi.generator.version>6.6.0</openapi.generator.version>
 	</properties>
 
 	<dependencies>
@@ -63,26 +64,12 @@
 			<version>${org.mapstruct.version}</version>
 		</dependency>
 
-		<!-- Swagger Config (Code Generator) -->
+		<!-- Swagger definition -->
 		<dependency>
-			<groupId>javax.annotation</groupId>
-			<artifactId>javax.annotation-api</artifactId>
-			<version>1.3.2</version>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>3.0.0</version>
 		</dependency>
-
-		<!--
-		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		-->
-
 	</dependencies>
 
 	<build>
@@ -114,25 +101,26 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<!-- Swagger Codegen Plugin -->
+			<!-- Generator Plugin -->
 			<plugin>
-				<groupId>io.swagger.codegen.v3</groupId>
+				<groupId>io.swagger</groupId>
 				<artifactId>swagger-codegen-maven-plugin</artifactId>
-				<version>3.0.36</version>
+				<version>2.4.16</version>
 				<executions>
 					<execution>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>${project.basedir}/src/main/resources/swaggerconfig.yml</inputSpec>
+							<inputSpec>./api-def/apiDefinition.yaml</inputSpec>
 							<language>spring</language>
-							<output>${project.build.directory}/generated-sources/</output>
-							<generateSupportingFiles>false</generateSupportingFiles>
-							<apiPackage>com.demo.usermanagement.api</apiPackage>
-							<modelPackage>com.demo.usermanagement.models</modelPackage>
 							<configOptions>
+								<sourceFolder>swagger</sourceFolder>
+								<java17>true</java17>
 								<interfaceOnly>true</interfaceOnly>
+								<modelPackage>com.example.swaggercodegenerationoverview.model</modelPackage>
+								<apiPackage>com.example.swaggercodegenerationoverview.api</apiPackage>
+								<useBeanValidation>true</useBeanValidation>
 							</configOptions>
 						</configuration>
 					</execution>

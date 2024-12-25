@@ -52,22 +52,26 @@ paths:
         '404':
           description: User not found
 
-  /deleteUser/{userName}:
+  /deleteUser/{id}:
     delete:
       tags:
         - User
       summary: Delete a user
       operationId: deleteUser
       parameters:
-        - name: userName
+        - name: id
           in: path
           required: true
-          description: The username of the user to delete
+          description: The id of the user to delete
           schema:
-            type: string
+            type: integer
       responses:
         '200':
           description: Successfully deleted user
+          content:
+            application/json:
+              schema:
+                type: string
         '404':
           description: User not found
 
